@@ -13,7 +13,7 @@ public class fahrkartenautomat {
 		Scanner tastatur = new Scanner(System.in);
 		double zuZahlenderBetrag;
 		double eingezahlterGesamtbetrag;
-		
+		boolean something = true;
 		//hghghg
 //		
 
@@ -40,9 +40,15 @@ public class fahrkartenautomat {
 		System.out.println("Herzlich Willkommen");
 		System.out.println("Fahrkartenbestellvorgang:\n"+"=========================");
 		System.out.println("Wählen Sie ihre Wunschfahrkarte für Berlin AB aus:");
-		System.out.println("Kurzstrecke AB [2,00 EUR] (1)\r\n"+ "  Einzelfahrschein AB [3,00 EUR] (2)\r\n"+ "  Tageskarte AB [8,80 EUR] (3)\r\n"+ "  4-Fahrten-Karte AB [9,40 EUR] (4)\n" + "Bezahlen (9)");
+		System.out.println("Einzelfahrschein AB [3,00 EUR] (1)\r\n" + "Einzelfahrschein BC [3,50 EUR] (2)\r\n"+ 
+		"Einzelfahrschein ABC [3,80 EUR] (3)\r\n"+ "Kurzstrecke AB [2,00 EUR] (4)\r\n" +
+		"Tageskarte AB [8,60 EUR](5)\r\n" + "Tageskarte BC [9,20] (6)\r\n" + "Tageskarte ABC [10,00] (7)\r\n"+
+		"4-Fahrten-Karte AB [9,40] (8)\r\n" + "4-Fahrten-Karte BC [12,60] (9)\r\n" + "4-Fahrten-Karte ABC [13,80] (10)\r\n"+
+		"Kleingruppen-Tageskarte AB [25,50] (11)\r\n" + "Kleingruppen-Tageskarte BC [26,00] (12)\r\n" +
+		"Kleingruppen-Tageskarte ABC [26,50] (13)\r\n" + "Bezahlen (14)\r\n");
 	}
 	
+
 	//Kartenauswahl un Ticketanzahl
 	public static double fahrkartenbestellungErfassen(Scanner tastatur) {
 		
@@ -53,45 +59,50 @@ public class fahrkartenautomat {
 		boolean korreteticketwahl = true;
 		int ticketart ;
 		double ticketpreis = 0;
-		
+		double [] fahrkartenPreise = {3.00,3.50,3.80,2.00,8.60,9.20,10.00,9.40,12.60,13.80,25.50,26.00,26.50};
+		String[] fahrkartenNamen = {
+				
+	            "Einzelfahrschein AB",
+	            "Einzelfahrschein BC",
+	            "Einzelfahrschein ABC",
+	            "Kurzstrecke AB",
+	            "Tageskarte AB",
+	            "Tageskarte BC",
+	            "Tageskarte ABC",
+	            "4-Fahrten-Karte AB",
+	            "4-Fahrten-Karte BC",
+	            "4-Fahrten-Karte ABC",
+	            "Kleingruppen-Tageskarte AB",
+	            "Kleingruppen-Tageskarte BC",
+	            "Kleingruppen-Tageskarte ABC",
+	            
+	        };
 		while(korreteticketwahl) {
 			
 			System.out.print("Ihre Wahl: ");
 			ticketart = tastatur.nextInt();
 			
-		if(ticketart != 1 && ticketart !=2  && ticketart != 3 && ticketart !=4  && ticketart !=9 ) {
+		if(ticketart > 14 ) {
+			
 			System.out.println(">>falsche Eingabe<<");
 			System.out.print("Ihre Wahl: ");
 			ticketart = tastatur.nextInt();
 		}
-				
-		else if (ticketart == 1){
-			ticketpreis += 2.00;
-			System.out.println("Zwischensumme:" + df.format(ticketpreis) +"€");
-			continue;
-		}
-		
-		else if (ticketart == 2){
-			ticketpreis += 3.00;
-			System.out.println("Zwischensumme:" + df.format(ticketpreis) +"€");
-			continue;
-		}
-		
-		else if (ticketart == 3){
-			ticketpreis += 8.80;
-			System.out.println("Zwischensumme:" + df.format(ticketpreis) +"€");
-			continue;
-		}
-		
-		else if (ticketart == 4) {
-			ticketpreis += 9.40;
-			System.out.println("Zwischensumme:" + df.format(ticketpreis) +"€");
-			continue;
-		}
-		
-		else if (ticketart == 9) {
+		else if (ticketart == 14) {
+			
 			break;
 		}
+		else {
+			
+			ticketpreis += fahrkartenPreise[ticketart-1];
+			System.out.println("Ihre Auswahl: " + fahrkartenNamen[ticketart-1]);
+			System.out.println("Zwischensumme:" + df.format(ticketpreis) +"€");
+			System.out.println("Geben sie '14' ein um zu bezahlen.");
+			System.out.println(" ");
+			continue;
+		}
+				
+
 		}//End of while loop
 		
 		
@@ -99,19 +110,25 @@ public class fahrkartenautomat {
 		anzahldertickets = tastatur.nextInt();
 		
 		while(korreteticketzahl) {
+			
 		if (anzahldertickets < 1 || anzahldertickets > 10) {
 			System.out.print("Wie viele Tickets würden sie gerne kaufen ?");
 			anzahldertickets = tastatur.nextInt();
 			
 		}
 		else {
+			
 			korreteticketzahl = false;
 		}
 			
 		}// End of while loop
-			System.out.println("Anzahl der Tickets: " + anzahldertickets);
-			zuZahlenderBetrag = anzahldertickets * ticketpreis;
+		
+		System.out.println("Anzahl der Tickets: " + anzahldertickets);
+		
+		zuZahlenderBetrag = anzahldertickets * ticketpreis;
+		
 		System.out.print("Zu zahlender Betrag (Euro): ");
+		
 		return zuZahlenderBetrag;
 	}//End of Method 
 	
